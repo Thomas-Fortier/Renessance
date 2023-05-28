@@ -1,7 +1,9 @@
 ﻿using FluentAssertions;
+using Newtonsoft.Json.Linq;
 using NSubstitute;
 using NUnit.Framework;
 using Renessance.Emulator.Hardware;
+using Renessance.Emulator.Tests.Helpers;
 
 namespace Renessance.Emulator.Tests.Hardware;
 
@@ -11,75 +13,32 @@ public class CPUInstructionTests
   #region LDA
 
   [Test]
-  public void LDA_ZP0_ShouldSetAccumulatorToProperDataFromMemory()
+  public void LDA_ZP0_ShouldSetAccumulatorToProperValueFromMemory()
   {
-    // Arrange
-    const byte expectedValue = 0xFF;
-    var internalRam = new byte[1024 * 64];
-    internalRam[0x0] = 0xA5;
-    internalRam[0x1] = 0xA6;
-    internalRam[0xA6] = expectedValue;
-    
-    var ram = Substitute.For<RAM>(internalRam);
-    var subject = new CPU(ram);
-    
-    // Act
-    Clock(subject, 8); // Reset
-    Clock(subject, 3); // LDA_ZERO
-    
-    var result = subject.Accumulator;
-
-    // Assert
-    result.Should().Be(expectedValue);
+    RunInstructionTest("a5", 3);
   }
   
   [Test]
-  public void LDA_IMM_ShouldSetAccumulatorToProperDataFromMemory()
+  public void LDA_IMM_ShouldSetAccumulatorToProperValueFromMemory()
   {
-    // Arrange
-    const byte expectedValue = 0xFF;
-    var internalRam = new byte[1024 * 64];
-    internalRam[0x0] = 0xA9;
-    internalRam[0x1] = expectedValue;
-
-    var ram = Substitute.For<RAM>(internalRam);
-    var subject = new CPU(ram);
-    
-    // Act
-    Clock(subject, 8); // Reset
-    Clock(subject, 2); // LDA_ZERO
-    
-    var result = subject.Accumulator;
-
-    // Assert
-    result.Should().Be(expectedValue);
+    RunInstructionTest("a9", 2);
   }
   
+  #endregion
+
+  #region LDX
+
   [Test]
-  public void LDX_IMM_ShouldSetXRegisterToProperDataFromMemory()
+  public void LDX_IMM_ShouldSetXRegisterToProperValueFromMemory()
   {
-    // Arrange
-    const byte expectedValue = 0xFF;
-    var internalRam = new byte[1024 * 64];
-    internalRam[0x0] = 0xA2;
-    internalRam[0x1] = expectedValue;
-
-    var ram = Substitute.For<RAM>(internalRam);
-    var subject = new CPU(ram);
-    
-    // Act
-    Clock(subject, 8); // Reset
-    Clock(subject, 2); // LDA_ZERO
-    
-    var result = subject.XRegister;
-
-    // Assert
-    result.Should().Be(expectedValue);
+    RunInstructionTest("a2", 2);
   }
 
   #endregion
 
-  private static void Clock(ICPU cpu, int cycles)
+  #region Helpers
+
+  private static void Clock(CPU cpu, int cycles)
   {
     while (cycles > 0)
     {
@@ -87,4 +46,54 @@ public class CPUInstructionTests
       cycles--;
     }
   }
+
+  private static void RunInstructionTest(string opcode, int instructionCycles)
+  {
+    foreach (var test in GetTestsFromJson(opcode))
+    {
+      // Arrange
+      var subject = InitializeNewCpu(test.Initial);
+
+      // Act
+      Clock(subject, 8); // Reset
+      Clock(subject, instructionCycles);
+
+      // Assert
+      AssertIsEqualToState(subject, test.Final);
+    }
+  }
+
+  private static List<InstructionTest> GetTestsFromJson(string opcode)
+  {
+    var json = File.ReadAllText($@"C:\Users\Thomas\Documents\Coding\Repos\Renessance\Renessance.Emulator.UnitTests\JsonInstructionTests\{opcode}.json");
+    var jsonTests = JArray.Parse(json);
+    return (from JObject testAttribute in jsonTests select testAttribute.ToObject<InstructionTest>()).ToList();
+  }
+
+  private static CPU InitializeNewCpu(CPUState state)
+  {
+    var internalRam = new byte[1024 * 64];
+    foreach (var ramKeyValue in state.RAM)
+      internalRam[ramKeyValue[0]] = (byte) ramKeyValue[1];
+    
+    var ram = Substitute.For<RAM>(internalRam);
+    
+    return new CPU(ram)
+    {
+      ProgramCounter = state.PC,
+      Accumulator = state.A,
+      XRegister = state.X,
+      YRegister = state.Y
+    };
+  }
+
+  private static void AssertIsEqualToState(CPU subject, CPUState expectedResult)
+  {
+    subject.Accumulator.Should().Be(expectedResult.A);
+    subject.XRegister.Should().Be(expectedResult.X);
+    subject.YRegister.Should().Be(expectedResult.Y);
+    subject.ProgramCounter.Should().Be(expectedResult.PC);
+  }
+
+  #endregion
 }

@@ -1,6 +1,6 @@
 ﻿namespace Renessance.Emulator.Hardware;
 
-public class RAM : IRAM
+public class RAM
 {
   private readonly byte[] _data;
 

@@ -4,14 +4,14 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("Renessance.Emulator.UnitTests")]
 namespace Renessance.Emulator.Hardware;
 
-public sealed partial class CPU : ICPU
+public sealed partial class CPU
 {
-  internal ushort ProgramCounter { get; private set; }
-  internal byte Accumulator { get; private set; }
-  internal byte XRegister { get; private set; }
-  internal byte YRegister { get; private set; }
-  internal byte StackPointer { get; private set; }
-  internal StatusRegister Status { get; private set; }
+  internal ushort ProgramCounter { get; set; }
+  internal byte Accumulator { get; set; }
+  internal byte XRegister { get; set; }
+  internal byte YRegister { get; set; }
+  internal byte StackPointer { get; set; }
+  internal StatusRegister Status { get; set; }
   
   private ushort _currentAbsoluteAddress;
   private ushort _currentRelativeAddress;
@@ -19,9 +19,9 @@ public sealed partial class CPU : ICPU
   private int _cycles;
   private Dictionary<byte, Instruction> _instructions;
 
-  private readonly IRAM _ram;
+  private readonly RAM _ram;
 
-  public CPU(IRAM ram)
+  public CPU(RAM ram)
   {
     _ram = ram;
     Status = new StatusRegister(); // TODO: Dependency injection?
@@ -44,6 +44,7 @@ public sealed partial class CPU : ICPU
       _currentAbsoluteAddress = GetAddressFromAddressingMode(instruction.Mode);
       
       instruction.Execute();
+      ProgramCounter++;
     }
     
     _cycles--;
