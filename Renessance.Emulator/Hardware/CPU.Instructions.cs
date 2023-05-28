@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
-using Renessance.Emulator.Hardware.Processor.Instructions;
 
-namespace Renessance.Emulator.Hardware.Processor;
+namespace Renessance.Emulator.Hardware;
 
 public sealed partial class CPU
 {
@@ -19,7 +18,13 @@ public sealed partial class CPU
         var instructionAttributes = (InstructionAttributes)attributes;
         var key = instructionAttributes.Opcode;
         var instructionLogic = (Action) method.CreateDelegate(typeof(Action), this);
-        var value = new Instruction(instructionAttributes, instructionLogic);
+        var value = new Instruction(
+          method.Name, 
+          instructionAttributes.Opcode, 
+          instructionAttributes.Mode, 
+          instructionAttributes.Cycles, 
+          instructionLogic
+        );
         
         instructions.Add(key, value);
       }
@@ -27,14 +32,14 @@ public sealed partial class CPU
 
     return instructions;
   }
-
+  
   [InstructionAttributes(Cycles = 2, Mode = AddressingMode.Immediate, Opcode = 0x29)]
   private void AND()
   {
-    _accumulator &= ReadNextByte();
+    Accumulator &= Read(_currentAbsoluteAddress);
 
-    _status.Zero = _accumulator == 0x0;
-    _status.Negative = (_accumulator & (1 << 7)) != 0;
+    Status.Zero = Accumulator == 0x0;
+    Status.Negative = (Accumulator & (1 << 7)) != 0;
   }
 
   [InstructionAttributes(Cycles = 2, Mode = AddressingMode.Immediate, Opcode = 0xA9)]
@@ -42,9 +47,24 @@ public sealed partial class CPU
   [InstructionAttributes(Cycles = 4, Mode = AddressingMode.ZeroPageX, Opcode = 0xB5)]
   private void LDA()
   {
-    _accumulator = ReadByte(_currentMemoryAddress);
+    Accumulator = Read(_currentAbsoluteAddress);
 
-    _status.Zero = _accumulator == 0x0;
-    _status.Negative = (_accumulator & (1 << 7)) != 0;
+    Status.Zero = Accumulator == 0x0;
+    Status.Negative = (Accumulator & (1 << 7)) != 0;
+  }
+
+  [InstructionAttributes(Cycles = 2, Mode = AddressingMode.Immediate, Opcode = 0xA2)]
+  private void LDX()
+  {
+    XRegister = Read(_currentAbsoluteAddress);
+    
+    Status.Zero = Accumulator == 0x0;
+    Status.Negative = (Accumulator & (1 << 7)) != 0;
+  }
+
+  [InstructionAttributes(Cycles = 3, Mode = AddressingMode.Absolute, Opcode = 0x4C)]
+  private void JMP()
+  {
+    
   }
 }

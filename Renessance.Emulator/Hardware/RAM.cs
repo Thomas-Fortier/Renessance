@@ -1,6 +1,6 @@
 ﻿namespace Renessance.Emulator.Hardware;
 
-public class RAM
+public class RAM : IRAM
 {
   private readonly byte[] _data;
 
@@ -16,7 +16,7 @@ public class RAM
     _data = data;
   }
 
-  public void Reset()
+  public void Initialize()
   {
     for (var index = 0; index < _data.Length; index++)
     {

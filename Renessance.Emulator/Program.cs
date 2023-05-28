@@ -1,7 +1,4 @@
-﻿using Renessance.Emulator.Hardware;
-using CPU = Renessance.Emulator.Hardware.Processor.CPU;
-
-namespace Renessance.Emulator;
+﻿namespace Renessance.Emulator;
 
 internal static class Program
 {
@@ -9,9 +6,9 @@ internal static class Program
   {
     Console.WriteLine("Renessance.Emulator");
 
-    var memory = new RAM(new byte[1024 * 64]);
+    /*var memory = new RAM(new byte[1024 * 64]);
     var processor = new CPU(memory);
     
-    processor.ExecuteNextInstruction(1);
+    processor.ExecuteNextInstruction(1);*/
   }
 }

@@ -1,4 +1,4 @@
-﻿namespace Renessance.Emulator.Hardware.Processor.Instructions;
+﻿namespace Renessance.Emulator.Hardware;
 
 public enum AddressingMode
 {
