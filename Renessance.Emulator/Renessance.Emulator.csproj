@@ -7,4 +7,10 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Compile Update="Hardware\Processor\CPU.AddressingModes.cs">
+        <DependentUpon>CPU.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>
