@@ -7,13 +7,4 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Compile Update="Hardware\CPU.Instructions.cs">
-        <DependentUpon>CPU.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Hardware\CPU.Addressing.cs">
-        <DependentUpon>CPU.cs</DependentUpon>
-      </Compile>
-    </ItemGroup>
-
 </Project>
