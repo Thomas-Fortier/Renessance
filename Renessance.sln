@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renessance.Emulator", "Sour
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renessance.Emulator.UnitTests", "Tests\Renessance.Emulator.UnitTests\Renessance.Emulator.UnitTests.csproj", "{CE433611-777E-47EF-8D57-B5F18D31AC91}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renessance.Hardware", "Renessance.Hardware\Renessance.Hardware.csproj", "{120BA987-73B1-4E42-8609-6258A53893B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renessance.Hardware.UnitTests", "Renessance.Hardware.UnitTests\Renessance.Hardware.UnitTests.csproj", "{BDBE677D-CF5D-4BCF-9872-31B0C12B5AD2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{CE433611-777E-47EF-8D57-B5F18D31AC91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE433611-777E-47EF-8D57-B5F18D31AC91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE433611-777E-47EF-8D57-B5F18D31AC91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{120BA987-73B1-4E42-8609-6258A53893B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{120BA987-73B1-4E42-8609-6258A53893B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{120BA987-73B1-4E42-8609-6258A53893B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{120BA987-73B1-4E42-8609-6258A53893B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDBE677D-CF5D-4BCF-9872-31B0C12B5AD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDBE677D-CF5D-4BCF-9872-31B0C12B5AD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDBE677D-CF5D-4BCF-9872-31B0C12B5AD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDBE677D-CF5D-4BCF-9872-31B0C12B5AD2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
