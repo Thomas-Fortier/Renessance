@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renessance.Emulator", "Source\Renessance.Emulator\Renessance.Emulator.csproj", "{5718FD89-74D8-4576-9E73-9CBE77EF769F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renessance.Emulator", "Sources\Renessance.Emulator\Renessance.Emulator.csproj", "{5718FD89-74D8-4576-9E73-9CBE77EF769F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renessance.Emulator.UnitTests", "Tests\Renessance.Emulator.UnitTests\Renessance.Emulator.UnitTests.csproj", "{CE433611-777E-47EF-8D57-B5F18D31AC91}"
 EndProject
