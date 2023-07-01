@@ -4,9 +4,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renessance.Emulator", "Sour
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renessance.Emulator.UnitTests", "Tests\Renessance.Emulator.UnitTests\Renessance.Emulator.UnitTests.csproj", "{CE433611-777E-47EF-8D57-B5F18D31AC91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renessance.Hardware", "Renessance.Hardware\Renessance.Hardware.csproj", "{120BA987-73B1-4E42-8609-6258A53893B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renessance.Hardware", "Sources\Renessance.Hardware\Renessance.Hardware.csproj", "{120BA987-73B1-4E42-8609-6258A53893B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renessance.Hardware.UnitTests", "Renessance.Hardware.UnitTests\Renessance.Hardware.UnitTests.csproj", "{BDBE677D-CF5D-4BCF-9872-31B0C12B5AD2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renessance.Hardware.UnitTests", "Tests\Renessance.Hardware.UnitTests\Renessance.Hardware.UnitTests.csproj", "{BDBE677D-CF5D-4BCF-9872-31B0C12B5AD2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
