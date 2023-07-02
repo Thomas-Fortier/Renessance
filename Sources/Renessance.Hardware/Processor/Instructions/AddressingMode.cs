@@ -1,18 +1,15 @@
-﻿namespace Renessance.Hardware.Processor.Instructions;
+namespace Renessance.Hardware.Processor.Instructions;
 
-public enum AddressingMode
+public class AddressingMode
 {
-  XZeroPageIndexed,
-  YZeroPageIndexed,
-  XAbsoluteIndexed,
-  YAbsoluteIndexed,
-  XIndirectIndexed,
-  YIndirectIndexed,
-  Implicit,
-  Accumulator,
-  Immediate,
-  ZeroPage,
-  Absolute,
-  Relative,
-  Indirect,
+  public string Name { get; private set; }
+  public ushort FetchedData { get; set; }
+  public bool RequiresExtraCycle { get; set; }
+
+  public AddressingMode(string name, ushort fetchedData, bool requiresExtraCycle = false)
+  {
+    Name = name;
+    FetchedData = fetchedData;
+    RequiresExtraCycle = requiresExtraCycle;
+  }
 }

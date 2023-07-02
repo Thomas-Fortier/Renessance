@@ -2,14 +2,19 @@
 
 public class Cpu : ICpu
 {
-  private CpuRegisters _registers;
+  public CpuRegisters Registers { get; private set; }
 
   public Cpu()
   {
-    _registers = new CpuRegisters();
+    Registers = new CpuRegisters();
   }
   
   public void ExecuteCycle()
+  {
+    throw new NotImplementedException();
+  }
+
+  public ushort Read(ushort location)
   {
     throw new NotImplementedException();
   }
