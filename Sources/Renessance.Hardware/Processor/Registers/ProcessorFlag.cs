@@ -1,6 +1,6 @@
-﻿namespace Renessance.Hardware.Processor;
+﻿namespace Renessance.Hardware.Processor.Registers;
 
-public enum ProcessorFlag
+internal enum ProcessorFlag
 {
   Carry,
   Zero,

@@ -17,8 +17,19 @@ public class Rom
 
   public static Rom LoadRomFromDisk(string path)
   {
+    _log.Info($"Loading ROM file '{path}'...");
+
     if (File.Exists(path))
-      return new Rom(new FileInfo(path), File.ReadAllBytes(path));
+    {
+      var rom = new Rom(new FileInfo(path), File.ReadAllBytes(path));
+      _log.Info($"Loaded ROM ({rom.RomInfo.Name}) successfully.");
+      
+#if DEBUG
+      _log.Debug($"ROM is {rom.Data.Length} bytes in length.");
+#endif
+
+      return rom;
+    }
     
     const string MESSAGE = "Could not find the specified ROM file.";
     _log.Error(MESSAGE + $" '{path}'");

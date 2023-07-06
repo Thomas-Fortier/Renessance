@@ -1,12 +1,21 @@
 namespace Renessance.Hardware.Processor.Instructions;
 
-public class AddressingModeFactory
+internal class AddressingModeFactory
 {
   private readonly Cpu _cpu;
 
   public AddressingModeFactory(Cpu cpu)
   {
     _cpu = cpu;
+  }
+
+  public AddressingMode GetAddressingModeFromOpcode(ushort opcode)
+  {
+    return opcode switch
+    {
+      0x4E => Imp(),
+      _ => throw new NotImplementedException($"Could not map the opcode '${opcode}' to an addressing mode.")
+    };
   }
   
   private AddressingMode Imp()

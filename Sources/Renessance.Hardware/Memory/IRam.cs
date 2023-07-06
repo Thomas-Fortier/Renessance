@@ -15,4 +15,10 @@ public interface IRam
   /// <param name="location">The location of the memory.</param>
   /// <param name="data">The data to set.</param>
   void Write(int location, byte data);
+
+  /// <summary>
+  /// Writes the specified ROM data.
+  /// </summary>
+  /// <param name="data">The data to set.</param>
+  void LoadRom(byte[] data);
 }

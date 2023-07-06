@@ -16,5 +16,9 @@
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Renessance.Hardware\Renessance.Hardware.csproj" />
+    </ItemGroup>
     
 </Project>

@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using log4net;
 using log4net.Config;
+using Renessance.Hardware;
 
 namespace Renessance.Emulator;
 
@@ -12,14 +13,30 @@ internal static class Program
   {
     InitializeLogger();
 
+    var finishedWithErrors = false;
+
     try
     {
-      var rom = Rom.LoadRomFromDisk(@"C:\Users\Thomas\Desktop\cpu_dfummy_reads.nes");
+      var system = NesSystemFactory.CreateNesSystem();
+      var rom = Rom.LoadRomFromDisk(@"C:\Users\Thomas\Desktop\cpu_dummy_reads.nes");
+      
+      system.LoadRom(rom.Data);
+
+      while (true)
+      {
+        system.ExecuteCycle();
+      }
     }
     catch (Exception exception)
     {
       _log.Error("An unhandled exception has occured. See exception for details.", exception);
+      finishedWithErrors = true;
     }
+
+    if (finishedWithErrors)
+      _log.Warn("Finished execution with error.");
+    else
+      _log.Info("Finished execution.");
   }
 
   private static void InitializeLogger()
